@@ -44,33 +44,31 @@ module.exports = event => {
                 ${event.content.comment.content ? "コメント: \n" + event.content.comment.content : ""}
                 ${BACKLOGURL}/view/${event.project.projectKey}-${event.content.key_id}`;
             break;
-        case 3:
-            // 課題コメント
-            msg.title = `コメント:${event.content.summary}`;
+        case 4:
+            // 課題削除
+            msg.title = `課題削除:${event.content.summary}`;
             msg.value = `
-                投稿者: ${event.createdUser.name}
-                ${event.content.comment.content}
-                ${BACKLOGURL}/view/${event.project.projectKey}-${event.content.key_id}#comment-${event.content.comment.id}`;
+                更新者: ${event.createdUser.name}`;
             break;
         case 8:
             // ファイル作成
             msg.title = `ファイル作成:${event.content.dir}${event.content.name}`;
             msg.value = `
-                ユーザ: ${event.createdUser.name}
+                更新者: ${event.createdUser.name}
                 ${BACKLOGURL}/file/${event.project.projectKey}${event.content.dir}${event.content.name}`;
             break;
         case 9:
             // ファイル更新
             msg.title = `ファイル更新:${event.content.dir}${event.content.name}`;
             msg.value = `
-                ユーザ: ${event.createdUser.name}
+                更新者: ${event.createdUser.name}
                 ${BACKLOGURL}/file/${event.project.projectKey}${event.content.dir}${event.content.name}`;
             break;
         case 10:
             // ファイル削除
             msg.title = `ファイル削除:${event.content.dir}${event.content.name}`;
             msg.value = `
-                ユーザ: ${event.createdUser.name}`;
+                更新者: ${event.createdUser.name}`;
             break;
         default:
             // 未定義
