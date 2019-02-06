@@ -17,22 +17,25 @@ module.exports = event => {
                 ${BACKLOGURL}/view/${event.project.projectKey}-${event.content.key_id}`;
             break;
         case 2:
+        case 3:
             // 課題更新
             msg.title = `課題更新:${event.content.summary}`;
             let changes = "";
-            for (const change of event.content.changes) {
-                switch (change.field) {
-                    case "status":
-                        changes += `状態が ${BACKLOGSTATUS[change.old_value]} から ${BACKLOGSTATUS[change.new_value]} に変更されました\n`;
-                        break;
-                    case "limitDate":
-                        changes += `期限日が ${change.old_value === "" ? "未設定" : change.old_value} から ${change.new_value === "" ? "未設定" : change.new_value} に変更されました\n`;
-                        break;
-                    default:
-                        // 未定義
-                        changes += `未定義の変更点`;
-                        changes += JSON.stringify(change);
-                        changes += "\n";
+            if (event.content.changes) {
+                for (const change of event.content.changes) {
+                    switch (change.field) {
+                        case "status":
+                            changes += `状態が ${BACKLOGSTATUS[change.old_value]} から ${BACKLOGSTATUS[change.new_value]} に変更されました\n`;
+                            break;
+                        case "limitDate":
+                            changes += `期限日が ${change.old_value ? change.old_value : "未設定"} から ${change.new_value ? change.new_value : "未設定"} に変更されました\n`;
+                            break;
+                        default:
+                            // 未定義
+                            changes += `未定義の変更点`;
+                            changes += JSON.stringify(change);
+                            changes += "\n";
+                    }
                 }
             }
             msg.value = `
