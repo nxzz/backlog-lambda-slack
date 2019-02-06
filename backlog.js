@@ -74,6 +74,6 @@ module.exports = event => {
             msg.title = `未定義イベント`;
             msg.value = JSON.stringify(event);
     }
-    msg.value = msg.value.replace(/                /g, '');
+    msg.value = msg.value.replace(/ {16}/g, '');
     return msg;
 };
