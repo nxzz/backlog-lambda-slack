@@ -80,13 +80,13 @@ module.exports = event => {
                     ${BACKLOGURL}/view/${event.project.projectKey}-${event.content.key_id}`;
             }
             break;
-        // 削除された課題名が取れないため、無効化
-        // case 4:
-        //     // 課題削除
-        //     msg.title = `課題削除:${event.content.summary}`;
-        //     msg.value = `
-        //         更新者: ${event.createdUser.name}`;
-        //     break;
+            // 削除された課題名は取れない
+        case 4:
+            // 課題削除
+            msg.title = `課題削除`;
+            msg.value = `
+                更新者: ${event.createdUser.name}`;
+            break;
         case 14:
             // 課題一括更新
             {
