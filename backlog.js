@@ -2,6 +2,7 @@
 const BACKLOGURL = process.env.BACKLOGURL;
 
 const BACKLOGSTATUS = ["", "未対応", "処理中", "処理済み", "完了"];
+const BACKLOGPRIORITY = ["", "", "高", "中", "低"];
 
 module.exports = event => {
     const msg = {};
@@ -13,6 +14,8 @@ module.exports = event => {
                 種別: ${event.content.issueType.name}
                 作成者: ${event.createdUser.name}
                 担当者: ${event.content.assignee ? event.content.assignee.name : "未設定"}
+                優先度: ${event.content.priority.name}
+                期限日: ${event.content.dueDate ? event.content.dueDate : "未設定"}
                 ${event.content.description}
                 ${BACKLOGURL}/view/${event.project.projectKey}-${event.content.key_id}`;
             break;
@@ -29,6 +32,9 @@ module.exports = event => {
                             break;
                         case "limitDate":
                             changes += `期限日が ${change.old_value ? change.old_value : "未設定"} から ${change.new_value ? change.new_value : "未設定"} に変更されました\n`;
+                            break;
+                        case "priority":
+                            changes += `優先度が ${BACKLOGPRIORITY[change.old_value]} から ${BACKLOGPRIORITY[change.new_value]} に変更されました\n`;
                             break;
                         default:
                             // 未定義
