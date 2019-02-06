@@ -44,12 +44,13 @@ module.exports = event => {
                 ${event.content.comment.content ? "コメント: \n" + event.content.comment.content : ""}
                 ${BACKLOGURL}/view/${event.project.projectKey}-${event.content.key_id}`;
             break;
-        case 4:
-            // 課題削除
-            msg.title = `課題削除:${event.content.summary}`;
-            msg.value = `
-                更新者: ${event.createdUser.name}`;
-            break;
+        // 削除された課題名が取れないため、無効化
+        // case 4:
+        //     // 課題削除
+        //     msg.title = `課題削除:${event.content.summary}`;
+        //     msg.value = `
+        //         更新者: ${event.createdUser.name}`;
+        //     break;
         case 8:
             // ファイル作成
             msg.title = `ファイル作成:${event.content.dir}${event.content.name}`;
