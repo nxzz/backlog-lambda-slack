@@ -64,6 +64,12 @@ module.exports = event => {
                             case "priority":
                                 changes += `優先度が ${BACKLOGPRIORITY[change.old_value]} から ${BACKLOGPRIORITY[change.new_value]} に変更されました\n`;
                                 break;
+                            case "attachment":
+                                    changes += `添付ファイル ${BACKLOGPRIORITY[change.new_value]} が追加されました\n`;
+                                break;
+                            case "description":
+                                    changes += `本文が以下の内容に変更されました\n ${BACKLOGPRIORITY[change.new_value]}\n`;
+                                break;
                             default:
                                 // 未定義
                                 changes += `未定義の変更点`;
@@ -80,7 +86,7 @@ module.exports = event => {
                     ${BACKLOGURL}/view/${event.project.projectKey}-${event.content.key_id}`;
             }
             break;
-            // 削除された課題名は取れない
+        // 削除された課題名は取れない
         case 4:
             // 課題削除
             msg.title = `課題削除`;
